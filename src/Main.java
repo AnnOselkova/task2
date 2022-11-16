@@ -47,87 +47,95 @@ public class Main{
         System.out.println("boxSeq(1) -> " + boxSeq(1));
         System.out.println("boxSeq(2) -> " + boxSeq(2));
     }
+    // повторение символа в слове
     public static String repeat (String s, int n){
-        String out ="";
-        for(char lit : s.toCharArray()){
+        String result ="";
+        for(char b : s.toCharArray()){ // делаем массив из слова
             for(int p=0; p<n; p++){
-                out+=lit;
+                result+=b;
             }
         }
-        return out;
+        return result;
     }
+    // разность max и min значений
     public static int differenceMaxMin(int[] arr){
-        int max = arr[0];
-        int min = arr[0];
-        for(int digit : arr){
-            if(digit > max)max = digit;
-            if(digit < min)min = digit;
+        int max = arr[0]; //объявляем массив наибольшего числа
+        int min = arr[0]; // массив с наименьшим числом
+        for(int lit : arr){ // распределяем числа по массивам
+            if(lit > max)max = lit;
+            if(lit < min)min = lit;
         }
-        return max - min;
+        return max - min; // выводим разность
     }
+    //является ли среднее значение целым числом или нет
     public static boolean isAvgWhole(int[] arr){
         int sum = 0;
-        for(int digit : arr){
-            sum += digit;
+        for(int chs : arr){
+            sum += chs; // суммируем все числа в массиве
         }
-        double a = (double)sum/arr.length;
+        double a = (double)sum/arr.length; // делим сумму на количество чисел в массиве
         return a == (int)a;
     }
+    // сумма цифр до n включая
     public static int[] cumulativeSum(int[] arr){
-        int[] new_arr = new int[arr.length];
+        int[] new_arr = new int[arr.length]; // создаем массив
         int sum = 0;
         for(int i = 0; i < arr.length; i++){
-            sum += arr[i];
-            new_arr[i] = sum;
+            sum += arr[i]; // суммиуем число с предыдущими числами
+            new_arr[i] = sum; // записываем сумму в массив
         }
         return new_arr;
     }
-    public static int getDecimalPlaces(String digit){
-        int dotindex = digit.indexOf('.');
-        if (dotindex == -1)return 0;
-        return digit.length() - dotindex - 1;
+    // количество знаков после .
+    public static int getDecimalPlaces(String st){
+        int des = st.indexOf('.');
+        if (des == -1)return 0; // проверяем наличие чисел после .
+        return st.length() - des - 1; // выводим количество знаков после .
     }
+    // число фибоначчи
     public static int Fibonacci(int n){
-        int left = 1;
-        int right = 1;
+        int a = 1;
+        int b = 1;
         while (n > 0){
-            right = left + right;
-            left = right - left;
+            b = a + b; // рассматриваем сумму двух предыдущих чисел до n
+            a = b - a;
             n--;
         }
-        return left;
+        return a;
     }
-    public static boolean isValid(String zip){
-        if(zip.length() != 5) return false;
-        return zip.chars().allMatch(Character :: isDigit);
+    // почтовый индекс из 5 цифр
+    public static boolean isValid(String fil){
+        if(fil.length() != 5) return false; // проверяем чтобы количество знаков было = 5
+        return fil.chars().allMatch(Character :: isDigit); // проверяем, чтобы в строке были только числа
     }
-
+    // странная пара (1 буква 1 стр = последней букве 2 строки и наоборот)
     public static boolean isStrangePair(String first, String second){
         if(first.length() == 0 && second.length() == 0)return true;
+        // сравниваем буквы по условию
         return (first.charAt(0) == second.charAt(second.length() - 1)) && (second.charAt(0) == first.charAt(first.length() - 1));
     }
-
+    // начинается слово с префикса
     public static boolean isPrefix(String word, String subword){
         for(int i = 0; i < (subword.length() - 1); i++){
-            if(subword.charAt(i) != word.charAt(i))return false;
+            if(subword.charAt(i) != word.charAt(i))return false; // проверяем на схожесть префикса
         }
         return true;
     }
-
+    // заканчивается суффиксом
     public static boolean isSuffix(String word, String subword){
-        int baseIdx = word.length() - subword.length() + 1;
-        for(int i = baseIdx; i < word.length(); i++){
-            if(word.charAt(i) != subword.charAt(i - baseIdx + 1))return false;
+        int d = word.length() - subword.length() + 1;
+        for(int i = d; i < word.length(); i++){
+            if(word.charAt(i) != subword.charAt(i - d + 1))return false;
         }
         return true;
-    }
+    } // принимает шаг и возвращает количесво полей
     public static int boxSeq(int step){
-        int res = 0;
+        int r = 0;
         for(int i = 0; i < step; i++){
-            if(i % 2 == 0)res += 3;
-            else res -= 1;
+            if(i % 2 == 0) r += 3;
+            else r -= 1;
         }
-        return res;
+        return r;
     }
 
 }
